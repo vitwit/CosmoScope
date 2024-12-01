@@ -1,0 +1,59 @@
+{
+    "cosmos_networks": [
+        {
+            "name": "Akash",
+            "api": "https://api.akash.forbole.com:443",
+            "prefix": "akash",
+            "chain_id": "akashnet-2"
+        },
+        {
+            "name": "cosmos",
+            "api": "https://cosmos-rest.publicnode.com",
+            "prefix": "cosmos",
+            "chain_id": "cosmoshub-4"
+        },
+        {
+            "name": "DyDx",
+            "api": "https://dydx-dao-api.polkachu.com",
+            "prefix": "dydx",
+            "chain_id": "dydx-mainnet-1"
+        },
+        {
+            "name": "dymension",
+            "api": "https://dymension-api.ibs.team",
+            "prefix": "dym",
+            "chain_id": "dymension_1100-1"
+        },
+    ],
+    "evm_networks": [
+        {
+            "name": "ethereum",
+            "rpc": "https://mainnet.infura.io/v3/YOUR_INFURA_KEY",
+            "chain_id": 1,
+            "native_token": {
+                "symbol": "ETH",
+                "name": "Ethereum",
+                "decimals": 18
+            }
+        },
+        {
+            "name": "polygon",
+            "rpc": "https://polygon-mainnet.infura.io/v3/YOUR_INFURA_KEY",
+            "chain_id": 137,
+            "native_token": {
+                "symbol": "POL",
+                "name": "Polygon",
+                "decimals": 18
+            }
+        }
+    ],
+    "cosmos_addresses": [
+        "cosmos1.....dyruq",
+        "cosmos10....f26kq8n98k",
+    ],
+    "evm_addresses": [
+        "0x40DA26A96CDBffC90ab3b83bF695911426A896EA",
+    ],
+    "ibc_assets_file": "ibc_assets.json",
+    "moralis_api_key": "YOUR_MURALIS_API_KEY"
+}
