@@ -1,0 +1,152 @@
+{
+    "cosmos_networks": [
+        {
+            "name": "Akash",
+            "api": "https://api.akash.forbole.com:443",
+            "prefix": "akash",
+            "chain_id": "akashnet-2"
+        },
+        {
+            "name": "celestia",
+            "api": "https://public-celestia-lcd.numia.xyz",
+            "prefix": "celestia",
+            "chain_id": "celestia-1"
+        },
+        {
+            "name": "cosmos",
+            "api": "https://cosmos-rest.publicnode.com",
+            "prefix": "cosmos",
+            "chain_id": "cosmoshub-4"
+        },
+        {
+            "name": "DyDx",
+            "api": "https://dydx-dao-api.polkachu.com",
+            "prefix": "dydx",
+            "chain_id": "dydx-mainnet-1"
+        },
+        {
+            "name": "dymension",
+            "api": "https://dymension-api.ibs.team",
+            "prefix": "dym",
+            "chain_id": "dymension_1100-1"
+        },
+        {
+            "name": "evmos",
+            "api": "https://evmos-api.polkachu.com",
+            "prefix": "evmos",
+            "chain_id": "evmos_9001-2"
+        },
+        {
+            "name": "juno",
+            "api": "https://juno-api.polkachu.com",
+            "prefix": "juno",
+            "chain_id": "juno-1"
+        },
+        {
+            "name": "mars",
+            "api": "https://mars-api.polkachu.com",
+            "prefix": "mars",
+            "chain_id": "mars-1"
+        },
+        {
+            "name": "neutron",
+            "api": "https://rest.lavenderfive.com:443/neutron",
+            "prefix": "neutron",
+            "chain_id": "neutron-1"
+        },
+        {
+            "name": "noble",
+            "api": "https://noble-api.polkachu.com",
+            "prefix": "noble",
+            "chain_id": "noble-1"
+        },
+        {
+            "name": "omniflix",
+            "api": "https://rest.lavenderfive.com:443/omniflixhub",
+            "prefix": "omniflix",
+            "chain_id": "omniflixhub-1"
+        },
+        {
+            "name": "osmosis",
+            "api": "https://osmosis-api.polkachu.com",
+            "prefix": "osmo",
+            "chain_id": "osmosis-1"
+        },
+        {
+            "name": "passage",
+            "api": "https://api.passage.vitwit.com:443",
+            "prefix": "pasg",
+            "chain_id": "passage-1"
+        },
+        {
+            "name": "regen",
+            "api": "http://public-rpc.regen.vitwit.com:1317",
+            "prefix": "regen",
+            "chain_id": "regen-1"
+        },
+        {
+            "name": "stargaze",
+            "api": "https://stargaze-api.polkachu.com",
+            "prefix": "stars",
+            "chain_id": "stargaze-1"
+        }
+    ],
+    "evm_networks": [
+        {
+            "name": "ethereum",
+            "rpc": "https://mainnet.infura.io/v3/YOUR_KEY",
+            "chain_id": 1,
+            "native_token": {
+                "symbol": "ETH",
+                "name": "Ethereum",
+                "decimals": 18
+            }
+        },
+        {
+            "name": "polygon",
+            "rpc": "https://polygon-mainnet.infura.io/v3/YOUR_KEY",
+            "chain_id": 137,
+            "native_token": {
+                "symbol": "POL",
+                "name": "Polygon",
+                "decimals": 18
+            }
+        }
+    ],
+    "cosmos_addresses": [
+        "cosmos1ccdetczl87gsvmeva3c48nenyng4n56kuvew76",
+        "stars12rfjetczl87gsvmeva3c48nenyng4n52uncht"
+    ],
+    "evm_addresses": [
+        "0x40FD27A96CDBffC90ab3b83bF695911426A69fD5"
+    ],
+    "fixed_balances": [
+        {
+            "token": "BTC",
+            "amount": 1.23,
+            "label": "Cold Wallet"
+        },
+        {
+            "token": "SOL",
+            "amount": 3.45,
+            "label": "Exchange"
+        },
+        {
+            "token": "DOT",
+            "amount": 29999,
+            "label": "Exchange"
+        },
+        {
+            "token": "MATIC",
+            "amount": 1000000,
+            "label": "Staked"
+        },
+        {
+            "token": "ROSE",
+            "amount": 1000000,
+            "label": "Staked"
+        }
+    ],
+    "ibc_assets_file": "configs/ibc_assets.json",
+    "moralis_api_key": "YOUR_MORALIS_KEY"
+}
