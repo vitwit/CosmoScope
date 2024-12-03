@@ -63,8 +63,8 @@ Create `config.json`:
 ## Usage
 
 ```bash
-export MORALIS_API_KEY=your_key
-cosmoscope
+go build
+./cosmoscope
 ```
 ### Sample output
 ```
