@@ -6,7 +6,7 @@ import (
 	"github.com/cosmos/cosmos-sdk/types/bech32"
 )
 
-func ConvertCosmosAddress(address, fromPrefix, toPrefix string) (string, error) {
+func ConvertCosmosAddress(address, toPrefix string) (string, error) {
 	_, bz, err := bech32.DecodeAndConvert(address)
 	if err != nil {
 		return "", err

@@ -10,6 +10,7 @@ import (
 	"github.com/anilcse/cosmoscope/internal/evm"
 	"github.com/anilcse/cosmoscope/internal/portfolio"
 	"github.com/anilcse/cosmoscope/internal/price"
+	"github.com/anilcse/cosmoscope/pkg/utils"
 )
 
 func main() {
@@ -35,11 +36,18 @@ func main() {
 	// Query Cosmos networks
 	for _, network := range cfg.CosmosNetworks {
 		for _, address := range cfg.CosmosAddresses {
+
+			networkAddress, err := utils.ConvertCosmosAddress(address, network.Prefix)
+			if err != nil {
+				fmt.Printf("Error converting address for %s: %v\n", network.Name, err)
+				continue
+			}
+
 			wg.Add(1)
 			go func(net config.CosmosNetwork, addr string) {
 				defer wg.Done()
 				cosmos.QueryBalances(net, addr, balanceChan, ibcAssets)
-			}(network, address)
+			}(network, networkAddress)
 		}
 	}
 
