@@ -14,6 +14,7 @@ type Config struct {
 	IBCAssetsFile   string          `json:"ibc_assets_file"`
 	MoralisAPIKey   string          `json:"moralis_api_key"`
 	FixedBalances   []FixedBalance  `json:"fixed_balances"`
+	CoinGeckoURI    string          `json:"coingecko_uri"`
 }
 
 type CosmosNetwork struct {

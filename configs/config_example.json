@@ -147,6 +147,7 @@
             "label": "Staked"
         }
     ],
+    "coingecko_uri": "https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&ids=tether,altlayer,usd-coin,usdc,ethereum,bitcoin,polygon,pol-ex-matic,cosmos,celestia,ion,akash-network,regen,juno-network,matic-network,oasis-network,stride,osmosis,stargaze,injective,dydx-chain,passage,evmos,solana,polkadot,juno-network,sommelier,kujira,persistence,omniflix-network,agoric,quasar-2,umee,mars-protocol-a7fcbcfb-fd61-4017-92f0-7ee9f9cc6da3,quicksilver,neutron-3",
     "ibc_assets_file": "configs/ibc_assets.json",
     "moralis_api_key": "YOUR_MORALIS_KEY"
 }

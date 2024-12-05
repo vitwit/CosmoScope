@@ -15,17 +15,15 @@ type CoinGeckoResponse []struct {
 	CurrentPrice float64 `json:"current_price"`
 }
 
-func InitializePrices() {
-	prices = fetchPrices()
+func InitializePrices(url string) {
+	prices = fetchPrices(url)
 	if prices == nil {
 		fmt.Println("Error: Failed to fetch prices. Proceeding with zero USD values.")
 		prices = make(map[string]float64)
 	}
 }
 
-func fetchPrices() map[string]float64 {
-	url := "https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&ids=tether,altlayer,usd-coin,usdc,ethereum,bitcoin,polygon,pol-ex-matic,cosmos,celestia,ion,akash-network,regen,juno-network,matic-network,oasis-network,stride,osmosis,stargaze,injective,dydx-chain,passage,evmos,solana,polkadot,juno-network,sommelier,kujira,persistence,omniflix-network,agoric,quasar-2,umee,mars-protocol-a7fcbcfb-fd61-4017-92f0-7ee9f9cc6da3,quicksilver,neutron-3"
-
+func fetchPrices(url string) map[string]float64 {
 	client := &http.Client{Timeout: time.Second * 10}
 	resp, err := client.Get(url)
 	if err != nil {

@@ -20,7 +20,7 @@ func main() {
 	cfg := config.Load()
 
 	// Initialize price and IBC data
-	price.InitializePrices()
+	price.InitializePrices(cfg.CoinGeckoURI)
 	ibcAssets, err := config.LoadIBCAssets(cfg.IBCAssetsFile)
 	if err != nil {
 		fmt.Printf("Warning: Failed to load IBC assets: %v\n", err)
@@ -78,7 +78,7 @@ func printHeader() {
 	fmt.Println("\n\n\n*******************************************************************************")
 	fmt.Println("*                                                                             *")
 	fmt.Println("*                                                                             *")
-	fmt.Printf("*                BALANCES REPORT   (%s)                     *\n", time.Now().Format("2006-1-2 15:4:5"))
+	fmt.Printf("*                 BALANCES REPORT   (%s)                     *\n", time.Now().Format("2006-01-02 15:04:05"))
 	fmt.Println("*                                                                             *")
 	fmt.Println("*                                                                             *")
 	fmt.Println("*******************************************************************************")
