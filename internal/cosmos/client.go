@@ -68,7 +68,7 @@ func getBalance(api string, address string, endpoint string) []struct {
 	case "/cosmos/bank/v1beta1/balances":
 		var response BankBalanceResponse
 		if err := json.Unmarshal(body, &response); err != nil {
-			fmt.Printf("Error unmarshaling bank balance response: %s - %s\n", string(body), address)
+			fmt.Printf("Error unmarshaling bank balance response: %s - %s\n", string(err.Error()), address)
 			return nil
 		}
 		return response.Balances

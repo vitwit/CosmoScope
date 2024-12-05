@@ -120,6 +120,39 @@
     "evm_addresses": [
         "0x40FD27A96CDBffC90ab3b83bF695911426A69fD5"
     ],
+    "solana_networks": [
+        {
+            "name": "mainnet",
+            "rpc": "https://api.mainnet-beta.solana.com",
+            "chain_id": "mainnet-beta"
+        }
+    ],
+    "solana_addresses": [
+        "AKm41uMmXJ1wxKVqPYDpjRxGXPTefxkY9dUiYqQ5uHHJ"
+    ],
+    "exchanges": [
+        {
+            "name": "Binance",
+            "type": "binance",
+            "api_key": "your_api_key",
+            "api_secret": "your_api_secret"
+        },
+        {
+            "name": "Kraken",
+            "type": "kraken",
+            "api_key": "your_api_key",
+            "api_secret": "your_api_secret"
+        },
+        {
+            "name": "Coinbase",
+            "type": "coinbase",
+            "api_key": "your_api_key",
+            "api_secret": "your_api_secret",
+            "extra": {
+                "passphrase": "your_passphrase"
+            }
+        }
+    ],
     "fixed_balances": [
         {
             "token": "BTC",

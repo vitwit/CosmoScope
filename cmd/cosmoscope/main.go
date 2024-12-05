@@ -8,8 +8,10 @@ import (
 	"github.com/anilcse/cosmoscope/internal/config"
 	"github.com/anilcse/cosmoscope/internal/cosmos"
 	"github.com/anilcse/cosmoscope/internal/evm"
+	"github.com/anilcse/cosmoscope/internal/exchange"
 	"github.com/anilcse/cosmoscope/internal/portfolio"
 	"github.com/anilcse/cosmoscope/internal/price"
+	"github.com/anilcse/cosmoscope/internal/solana"
 	"github.com/anilcse/cosmoscope/pkg/utils"
 )
 
@@ -60,6 +62,26 @@ func main() {
 				evm.QueryBalances(net, addr, balanceChan)
 			}(network, address)
 		}
+	}
+
+	// Query Solana networks
+	for _, network := range config.GlobalConfig.SolanaNetworks {
+		for _, address := range config.GlobalConfig.SolanaAddresses {
+			wg.Add(1)
+			go func(net config.SolanaNetwork, addr string) {
+				defer wg.Done()
+				solana.QueryBalances(net, addr, balanceChan)
+			}(network, address)
+		}
+	}
+
+	// Query Exchanges
+	for _, exc := range config.GlobalConfig.Exchanges {
+		wg.Add(1)
+		go func(exc config.ExchangeConfig) {
+			defer wg.Done()
+			exchange.QueryExchangeBalances(exc, balanceChan)
+		}(exc)
 	}
 
 	// Close channel after all goroutines complete
