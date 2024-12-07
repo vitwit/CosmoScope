@@ -180,6 +180,10 @@ func resolveIBCDenom(denom string, ibcMap map[string]*config.IBCAsset) (string, 
 		return strings.ToUpper(strings.TrimLeft(denom, "u")), 6
 	}
 
+	if strings.HasPrefix(denom, "a") {
+		return strings.ToUpper(strings.TrimLeft(denom, "a")), 18
+	}
+
 	return denom, 6
 }
 
