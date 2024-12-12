@@ -199,6 +199,39 @@ Asset Types:
 +------------+--------------+----------+
 ```
 
+## Features & Roadmap
+
+### Current Features ✅
+- **Cosmos Ecosystem**
+  - Auto-configuration using Chain Registry
+  - Bank, staking, and reward balances
+  - IBC token resolution
+- **EVM Networks**
+  - Ethereum & compatible chains
+  - Native token balances
+  - Custom RPC support
+- **Portfolio Analytics**
+  - Real-time USD values
+  - Network distribution
+  - Asset type breakdown
+
+### Coming Soon 🚧
+- **Solana Integration**
+  - Native SOL & SPL tokens
+  - Stake accounts
+  - Program-owned accounts
+- **Enhancements**
+  - NFT tracking
+  - DeFi positions
+
+### Future Plans 📋
+- Additional L1 blockchains
+- CSV export
+- Custom grouping
+- Database support for snapshots
+- Historical snapshots
+
+
 ## Contributing
 
 1. Fork the repository
