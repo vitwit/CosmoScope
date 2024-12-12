@@ -132,30 +132,105 @@ Note: Cosmos network configurations are now automatically fetched from the [Cosm
    - Infura: https://infura.io/
    - Or other RPC providers
 
-## CI/CD
+## Sample Output
 
-The project uses GitHub Actions for continuous integration and deployment:
+Running `cosmoscope` produces a detailed breakdown of your portfolio across different networks and asset types:
 
-- Automated testing and code coverage reporting
-- Linting with golangci-lint
-- Multi-platform builds (Linux, macOS, Windows)
-- Automatic releases on tags
-- Coverage reporting with Codecov
+```
+╔════════════════════════════════════════════════════════════╗
+║                                                            ║
+║              BALANCES REPORT - 2024-03-12 15:04:05         ║
+║                                                            ║
+╚════════════════════════════════════════════════════════════╝
 
-### Release Process
+Detailed Balance View:
++----------------------+-----------------+----------+---------------+--------------+
+|       ACCOUNT        |     NETWORK     |  TOKEN   |    AMOUNT     |  USD VALUE  |
++----------------------+-----------------+----------+---------------+--------------+
+| cosmos1abc...def     | cosmos-bank     | ATOM     |      520.4530 |  $5,204.53  |
+| cosmos1abc...def     | cosmos-staking  | ATOM     |     2500.0000 | $25,000.00  |
+| cosmos1abc...def     | cosmos-rewards  | ATOM     |        3.4520 |     $34.52  |
+| osmo1xyz...789       | osmosis-bank    | OSMO     |     1200.0000 |  $2,400.00  |
+| osmo1xyz...789       | osmosis-bank    | ATOM     |      150.0000 |  $1,500.00  |
+| osmo1xyz...789       | osmosis-staking | OSMO     |     5000.0000 | $10,000.00  |
+| stars1pqr...456      | stargaze-bank   | STARS    |    15000.0000 |  $1,500.00  |
+| evmos1mno...123      | evmos-staking   | EVMOS    |     1000.0000 |  $2,500.00  |
+| 0x123...789          | ethereum        | ETH      |        1.5000 |  $4,500.00  |
+| 0x123...789          | polygon         | MATIC    |    10000.0000 | $10,000.00  |
+| Cold Storage         | Fixed Balance   | BTC      |        0.7500 | $30,000.00  |
+| Exchange             | Fixed Balance   | ETH      |        2.0000 |  $6,000.00  |
++----------------------+-----------------+----------+---------------+--------------+
 
-To create a new release:
+Portfolio Summary:
++----------+---------------+--------------+----------+
+|  TOKEN   |    AMOUNT     |  USD VALUE   | SHARE %  |
++----------+---------------+--------------+----------+
+| ATOM     |    3173.9050  | $31,739.05  |   31.74% |
+| OSMO     |    6200.0000  | $12,400.00  |   12.40% |
+| ETH      |       3.5000  | $10,500.00  |   10.50% |
+| MATIC    |   10000.0000  | $10,000.00  |   10.00% |
+| BTC      |       0.7500  | $30,000.00  |   30.00% |
+| EVMOS    |    1000.0000  |  $2,500.00  |    2.50% |
+| STARS    |   15000.0000  |  $1,500.00  |    1.50% |
++----------+---------------+--------------+----------+
+Total Portfolio Value: $98,639.05
 
-```bash
-git tag v1.0.0
-git push origin v1.0.0
+Network Distribution:
++-------------------+--------------+----------+
+|      NETWORK      |  USD VALUE   | SHARE %  |
++-------------------+--------------+----------+
+| Cosmos Hub        | $31,739.05   |   32.18% |
+| Osmosis          | $12,400.00   |   12.57% |
+| Ethereum         | $10,500.00   |   10.64% |
+| Polygon          | $10,000.00   |   10.14% |
+| Fixed Balance    | $36,000.00   |   36.50% |
+| Evmos            |  $2,500.00   |    2.53% |
+| Stargaze         |  $1,500.00   |    1.52% |
++-------------------+--------------+----------+
+
+Asset Types:
++------------+--------------+----------+
+|    TYPE    |  USD VALUE   | SHARE %  |
++------------+--------------+----------+
+| Bank       | $15,104.53   |   15.31% |
+| Staking    | $47,500.00   |   48.15% |
+| Rewards    |     $34.52   |    0.04% |
+| Fixed      | $36,000.00   |   36.50% |
++------------+--------------+----------+
 ```
 
-This will trigger the CI pipeline to:
-1. Run tests and coverage
-2. Build binaries for all platforms
-3. Create a GitHub release
-4. Upload binaries to the release
+## Features & Roadmap
+
+### Current Features ✅
+- **Cosmos Ecosystem**
+  - Auto-configuration using Chain Registry
+  - Bank, staking, and reward balances
+  - IBC token resolution
+- **EVM Networks**
+  - Ethereum & compatible chains
+  - Native token balances
+  - Custom RPC support
+- **Portfolio Analytics**
+  - Real-time USD values
+  - Network distribution
+  - Asset type breakdown
+
+### Coming Soon 🚧
+- **Solana Integration**
+  - Native SOL & SPL tokens
+  - Stake accounts
+  - Program-owned accounts
+- **Enhancements**
+  - NFT tracking
+  - DeFi positions
+
+### Future Plans 📋
+- Additional L1 blockchains
+- CSV export
+- Custom grouping
+- Database support for snapshots
+- Historical snapshots
+
 
 ## Contributing
 
@@ -165,7 +240,3 @@ This will trigger the CI pipeline to:
 4. Commit your changes (`git commit -m 'Add amazing feature'`)
 5. Push to the branch (`git push origin feature/amazing-feature`)
 6. Open a Pull Request
-
-## License
-
-This project is licensed under the MIT License - see the LICENSE file for details
