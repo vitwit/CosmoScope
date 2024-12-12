@@ -21,10 +21,6 @@ func main() {
 
 	// Initialize price and IBC data
 	price.InitializePrices(cfg.CoinGeckoURI)
-	// ibcAssets, err := config.LoadIBCAssets(cfg.IBCAssetsFile)
-	// if err != nil {
-	// 	fmt.Printf("Warning: Failed to load IBC assets: %v\n", err)
-	// }
 
 	// Create channels for collecting balances
 	balanceChan := make(chan portfolio.Balance, 1000)
