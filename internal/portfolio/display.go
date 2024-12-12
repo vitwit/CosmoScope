@@ -42,7 +42,8 @@ func PrintHeader() {
 	headerColor.Printf("         ║\n")
 	headerColor.Printf("║ %s", strings.Repeat(" ", 59))
 	headerColor.Println("║")
-	headerColor.Println("╚════════════════════════════════════════════════════════════╝\n")
+	headerColor.Println("╚════════════════════════════════════════════════════════════╝")
+	fmt.Println("")
 }
 
 func PrintFooter(balances []Balance) {
@@ -66,7 +67,8 @@ func PrintFooter(balances []Balance) {
 	headerColor.Printf("                 ║\n")
 	headerColor.Printf("║ %s", strings.Repeat(" ", 59))
 	headerColor.Println("║")
-	headerColor.Println("╚════════════════════════════════════════════════════════════╝\n")
+	headerColor.Println("╚════════════════════════════════════════════════════════════╝")
+	fmt.Println("")
 }
 
 func printDetailedView(balances []Balance) {
