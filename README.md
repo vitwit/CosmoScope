@@ -22,7 +22,7 @@ CosmoScope is a command-line portfolio tracker that aggregates balances across m
 
 ```bash
 # Clone the repository
-git clone https://github.com/yourusername/cosmoscope.git
+git clone https://github.com/vitwit/cosmoscope.git
 cd cosmoscope
 
 # Install development dependencies
