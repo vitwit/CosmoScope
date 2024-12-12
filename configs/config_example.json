@@ -1,96 +1,5 @@
 {
-    "cosmos_networks": [
-        {
-            "name": "Akash",
-            "api": "https://api.akash.forbole.com:443",
-            "prefix": "akash",
-            "chain_id": "akashnet-2"
-        },
-        {
-            "name": "celestia",
-            "api": "https://public-celestia-lcd.numia.xyz",
-            "prefix": "celestia",
-            "chain_id": "celestia-1"
-        },
-        {
-            "name": "cosmos",
-            "api": "https://cosmos-rest.publicnode.com",
-            "prefix": "cosmos",
-            "chain_id": "cosmoshub-4"
-        },
-        {
-            "name": "DyDx",
-            "api": "https://dydx-dao-api.polkachu.com",
-            "prefix": "dydx",
-            "chain_id": "dydx-mainnet-1"
-        },
-        {
-            "name": "dymension",
-            "api": "https://dymension-api.ibs.team",
-            "prefix": "dym",
-            "chain_id": "dymension_1100-1"
-        },
-        {
-            "name": "evmos",
-            "api": "https://evmos-api.polkachu.com",
-            "prefix": "evmos",
-            "chain_id": "evmos_9001-2"
-        },
-        {
-            "name": "juno",
-            "api": "https://juno-api.polkachu.com",
-            "prefix": "juno",
-            "chain_id": "juno-1"
-        },
-        {
-            "name": "mars",
-            "api": "https://mars-api.polkachu.com",
-            "prefix": "mars",
-            "chain_id": "mars-1"
-        },
-        {
-            "name": "neutron",
-            "api": "https://rest.lavenderfive.com:443/neutron",
-            "prefix": "neutron",
-            "chain_id": "neutron-1"
-        },
-        {
-            "name": "noble",
-            "api": "https://noble-api.polkachu.com",
-            "prefix": "noble",
-            "chain_id": "noble-1"
-        },
-        {
-            "name": "omniflix",
-            "api": "https://rest.lavenderfive.com:443/omniflixhub",
-            "prefix": "omniflix",
-            "chain_id": "omniflixhub-1"
-        },
-        {
-            "name": "osmosis",
-            "api": "https://osmosis-api.polkachu.com",
-            "prefix": "osmo",
-            "chain_id": "osmosis-1"
-        },
-        {
-            "name": "passage",
-            "api": "https://api.passage.vitwit.com:443",
-            "prefix": "pasg",
-            "chain_id": "passage-1"
-        },
-        {
-            "name": "regen",
-            "api": "http://public-rpc.regen.vitwit.com:1317",
-            "prefix": "regen",
-            "chain_id": "regen-1"
-        },
-        {
-            "name": "stargaze",
-            "api": "https://stargaze-api.polkachu.com",
-            "prefix": "stars",
-            "chain_id": "stargaze-1"
-        }
-    ],
+    "cosmos_networks": ["cosmoshub", "akash", "it_should_follow_naming_from_cosmos-chain-registry"],
     "evm_networks": [
         {
             "name": "ethereum",
@@ -148,6 +57,5 @@
         }
     ],
     "coingecko_uri": "https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&ids=tether,altlayer,usd-coin,usdc,ethereum,bitcoin,polygon,pol-ex-matic,cosmos,celestia,ion,akash-network,regen,juno-network,matic-network,oasis-network,stride,osmosis,stargaze,injective,dydx-chain,passage,evmos,solana,polkadot,juno-network,sommelier,kujira,persistence,omniflix-network,agoric,quasar-2,umee,mars-protocol-a7fcbcfb-fd61-4017-92f0-7ee9f9cc6da3,quicksilver,neutron-3",
-    "ibc_assets_file": "configs/ibc_assets.json",
     "moralis_api_key": "YOUR_MORALIS_KEY"
 }
