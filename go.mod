@@ -5,6 +5,7 @@ go 1.21
 require (
 	github.com/cosmos/cosmos-sdk v0.50.3
 	github.com/ethereum/go-ethereum v1.13.8
+	github.com/fatih/color v1.15.0
 	github.com/olekukonko/tablewriter v0.0.5
 )
 
@@ -23,6 +24,8 @@ require (
 	github.com/go-ole/go-ole v1.2.5 // indirect
 	github.com/gorilla/websocket v1.5.0 // indirect
 	github.com/holiman/uint256 v1.2.4 // indirect
+	github.com/mattn/go-colorable v0.1.13 // indirect
+	github.com/mattn/go-isatty v0.0.20 // indirect
 	github.com/mattn/go-runewidth v0.0.13 // indirect
 	github.com/mmcloughlin/addchain v0.4.0 // indirect
 	github.com/rivo/uniseg v0.2.0 // indirect

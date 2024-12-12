@@ -348,3 +348,20 @@ func getActiveEndpoint(endpoints []RestEndpoint) string {
 
 	return ""
 }
+
+func isValidJSONResponse(resp *http.Response, body []byte) bool {
+	contentType := resp.Header.Get("Content-Type")
+	if !strings.Contains(strings.ToLower(contentType), "application/json") {
+		return false
+	}
+
+	// Check if the response looks like HTML
+	if strings.Contains(strings.ToLower(string(body)), "<!doctype html") ||
+		strings.Contains(strings.ToLower(string(body)), "<html") {
+		return false
+	}
+
+	// Try to parse as JSON
+	var js json.RawMessage
+	return json.Unmarshal(body, &js) == nil
+}
