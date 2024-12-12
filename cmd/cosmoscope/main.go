@@ -83,5 +83,7 @@ func printHeader() {
 	fmt.Println("*                                                                             *")
 	fmt.Println("*                                                                             *")
 	fmt.Println("*******************************************************************************")
-	fmt.Println("\n\n\n")
+	fmt.Println("")
+	fmt.Println("")
+	fmt.Println("")
 }

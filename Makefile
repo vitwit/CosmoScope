@@ -1,8 +1,12 @@
+.PHONY: all build test clean lint coverage dev-deps
+
+# Variables
 BINARY_NAME=cosmoscope
 MAIN_PACKAGE=./cmd/cosmoscope
 GO_FILES=$(shell find . -type f -name '*.go')
 VERSION=$(shell git describe --tags --always --dirty)
 LDFLAGS=-ldflags "-X main.version=${VERSION}"
+GOLANGCI_LINT_VERSION=v1.55.2
 
 all: lint test build
 
@@ -18,6 +22,10 @@ clean:
 	rm -f coverage.out
 
 lint:
+	@if ! which golangci-lint >/dev/null; then \
+		echo "Installing golangci-lint..." && \
+		go install github.com/golangci/golangci-lint/cmd/golangci-lint@${GOLANGCI_LINT_VERSION}; \
+	fi
 	golangci-lint run
 
 coverage: test
@@ -25,7 +33,7 @@ coverage: test
 
 # Install development dependencies
 dev-deps:
-	go install github.com/golangci/golangci-lint/cmd/golangci-lint@latest
+	go install github.com/golangci/golangci-lint/cmd/golangci-lint@${GOLANGCI_LINT_VERSION}
 
 # Run the application
 run: build
@@ -36,4 +44,8 @@ deps-update:
 	go mod tidy
 	go mod verify
 
-.PHONY: all build test clean lint coverage
+# Check tools versions
+check-tools:
+	@echo "Checking tools versions..."
+	@go version
+	@golangci-lint --version

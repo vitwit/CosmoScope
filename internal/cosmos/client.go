@@ -80,6 +80,8 @@ func FetchChainInfo(network string) (*ChainInfo, error) {
 	}
 
 	url := fmt.Sprintf("%s/%s/chain.json", registryBaseURL, network)
+
+	//nolint:gosec // G107: url is constructed from trusted base URL and sanitized network name
 	resp, err := http.Get(url)
 	if err != nil {
 		return nil, fmt.Errorf("error fetching chain info: %v", err)
@@ -101,6 +103,8 @@ func fetchAssetList(network string) (*AssetList, error) {
 	}
 
 	url := fmt.Sprintf("%s/%s/assetlist.json", registryBaseURL, network)
+
+	//nolint:gosec // G107: url is constructed from trusted base URL and sanitized network name
 	resp, err := http.Get(url)
 	if err != nil {
 		return nil, fmt.Errorf("error fetching asset list: %v", err)
@@ -259,7 +263,7 @@ func getBalance(api string, address string, endpoint string) []struct {
 	case "/cosmos/bank/v1beta1/balances":
 		var response BankBalanceResponse
 		if err := json.Unmarshal(body, &response); err != nil {
-			fmt.Printf("Error unmarshaling bank balance response: %s - %s\n", string(body), address, api)
+			fmt.Printf("Error unmarshaling bank balance response: %s - %s - %s\n", string(body), address, api)
 			return nil
 		}
 		return response.Balances
