@@ -21,10 +21,10 @@ func main() {
 
 	// Initialize price and IBC data
 	price.InitializePrices(cfg.CoinGeckoURI)
-	ibcAssets, err := config.LoadIBCAssets(cfg.IBCAssetsFile)
-	if err != nil {
-		fmt.Printf("Warning: Failed to load IBC assets: %v\n", err)
-	}
+	// ibcAssets, err := config.LoadIBCAssets(cfg.IBCAssetsFile)
+	// if err != nil {
+	// 	fmt.Printf("Warning: Failed to load IBC assets: %v\n", err)
+	// }
 
 	// Create channels for collecting balances
 	balanceChan := make(chan portfolio.Balance, 1000)
@@ -34,20 +34,25 @@ func main() {
 	portfolio.AddFixedBalances(balanceChan)
 
 	// Query Cosmos networks
-	for _, network := range cfg.CosmosNetworks {
-		for _, address := range cfg.CosmosAddresses {
+	for _, networkName := range cfg.CosmosNetworks {
+		chainInfo, err := cosmos.FetchChainInfo(networkName)
+		if err != nil {
+			fmt.Printf("Error fetching chain info for %s: %v\n", networkName, err)
+			continue
+		}
 
-			networkAddress, err := utils.ConvertCosmosAddress(address, network.Prefix)
+		for _, address := range cfg.CosmosAddresses {
+			networkAddress, err := utils.ConvertCosmosAddress(address, chainInfo.Bech32Prefix)
 			if err != nil {
-				fmt.Printf("Error converting address for %s: %v\n", network.Name, err)
+				fmt.Printf("Error converting address for %s: %v\n", networkName, err)
 				continue
 			}
 
 			wg.Add(1)
-			go func(net config.CosmosNetwork, addr string) {
+			go func(network, addr string) {
 				defer wg.Done()
-				cosmos.QueryBalances(net, addr, balanceChan, ibcAssets)
-			}(network, networkAddress)
+				cosmos.QueryBalances(network, addr, balanceChan)
+			}(networkName, networkAddress)
 		}
 	}
 
