@@ -51,12 +51,12 @@ jobs:
           go test -race -coverprofile=coverage.txt -covermode=atomic -v ./...
           go tool cover -func=coverage.txt
 
-      - name: Upload coverage to Codecov
-        uses: codecov/codecov-action@v3
-        with:
-          files: ./coverage.txt
-          fail_ci_if_error: true
-          verbose: true
+      # - name: Upload coverage to Codecov
+      #   uses: codecov/codecov-action@v3
+      #   with:
+      #     files: ./coverage.txt
+      #     fail_ci_if_error: true
+      #     verbose: true
 
       - name: Generate coverage report
         run: |
@@ -68,13 +68,13 @@ jobs:
           name: coverage-report
           path: coverage.html
           
-      - name: Comment coverage on PR
-        uses: codecov/codecov-action@v3
-        with:
-          files: ./coverage.txt
-          fail_ci_if_error: true
-          verbose: true
-          token: ${{ secrets.CODECOV_TOKEN }}
+      # - name: Comment coverage on PR
+      #   uses: codecov/codecov-action@v3
+      #   with:
+      #     files: ./coverage.txt
+      #     fail_ci_if_error: true
+      #     verbose: true
+      #     token: ${{ secrets.CODECOV_TOKEN }}
 
   build:
     name: Build
