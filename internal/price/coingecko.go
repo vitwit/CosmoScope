@@ -36,7 +36,7 @@ func fetchPrices(url string) map[string]float64 {
 		return nil
 	}
 
-	prices := make(map[string]float64)
+	prices = make(map[string]float64)
 	for _, coin := range response {
 		prices[strings.ToUpper(coin.Symbol)] = coin.CurrentPrice
 	}

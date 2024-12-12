@@ -7,21 +7,14 @@ type FixedBalance struct {
 }
 
 type Config struct {
-	CosmosNetworks  []CosmosNetwork `json:"cosmos_networks"`
-	EVMNetworks     []EVMNetwork    `json:"evm_networks"`
-	CosmosAddresses []string        `json:"cosmos_addresses"`
-	EVMAddresses    []string        `json:"evm_addresses"`
-	IBCAssetsFile   string          `json:"ibc_assets_file"`
-	MoralisAPIKey   string          `json:"moralis_api_key"`
-	FixedBalances   []FixedBalance  `json:"fixed_balances"`
-	CoinGeckoURI    string          `json:"coingecko_uri"`
-}
-
-type CosmosNetwork struct {
-	Name    string `json:"name"`
-	API     string `json:"api"`
-	Prefix  string `json:"prefix"`
-	ChainID string `json:"chain_id"`
+	CosmosNetworks  []string       `json:"cosmos_networks"`
+	EVMNetworks     []EVMNetwork   `json:"evm_networks"`
+	CosmosAddresses []string       `json:"cosmos_addresses"`
+	EVMAddresses    []string       `json:"evm_addresses"`
+	IBCAssetsFile   string         `json:"ibc_assets_file"`
+	MoralisAPIKey   string         `json:"moralis_api_key"`
+	FixedBalances   []FixedBalance `json:"fixed_balances"`
+	CoinGeckoURI    string         `json:"coingecko_uri"`
 }
 
 type NativeToken struct {

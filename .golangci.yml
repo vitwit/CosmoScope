@@ -1,0 +1,53 @@
+linters:
+  enable:
+    - gofmt
+    - revive        # Modern replacement for golint
+    - govet
+    - errcheck
+    - staticcheck
+    - gosimple
+    - ineffassign
+    - unused
+    - misspell
+    - gocyclo
+    # - gocritic
+    - bodyclose    # Checks whether HTTP response bodies are closed
+    - gosec       # Security checker
+
+issues:
+  exclude-dirs:
+    - vendor/     # Replaces skip-dirs
+  exclude-rules:
+    - path: _test\.go
+      linters:
+        - errcheck
+    - path: _test\.go
+      text: "field is never used"
+      linters:
+        - unused
+
+linters-settings:
+  revive:
+    rules:
+      - name: exported
+        arguments:
+          - "checkPrivateReceivers"
+          - "disableStutteringCheck"
+  gofmt:
+    simplify: true
+  misspell:
+    locale: US
+  gocyclo:
+    min-complexity: 15
+  gocritic:
+    enabled-tags:
+      - diagnostic
+      - performance
+      - style
+  gosec:
+    excludes:
+      - G404  # Insecure random number source (math/rand)
+
+run:
+  timeout: 5m
+  tests: true

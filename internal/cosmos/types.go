@@ -1,5 +1,38 @@
 package cosmos
 
+type ChainInfo struct {
+	ChainName    string `json:"chain_name"`
+	Bech32Prefix string `json:"bech32_prefix"`
+	ChainID      string `json:"chain_id"`
+	APIs         struct {
+		REST []RestEndpoint `json:"rest"`
+	} `json:"apis"`
+}
+
+type RestEndpoint struct {
+	Address string `json:"address"`
+}
+
+type AssetList struct {
+	Assets []Asset `json:"assets"`
+}
+
+type Asset struct {
+	Description string      `json:"description"`
+	DenomUnits  []DenomUnit `json:"denom_units"`
+	Base        string      `json:"base"`
+	Display     string      `json:"display"`
+	Name        string      `json:"name"`
+	Symbol      string      `json:"symbol"`
+	TypeAsset   string      `json:"type_asset"`
+}
+
+type DenomUnit struct {
+	Denom    string   `json:"denom"`
+	Exponent int      `json:"exponent"`
+	Aliases  []string `json:"aliases,omitempty"`
+}
+
 type BankBalanceResponse struct {
 	Balances []struct {
 		Denom  string `json:"denom"`
