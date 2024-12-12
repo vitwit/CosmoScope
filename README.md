@@ -1,18 +1,18 @@
 # CosmoScope
 
-CosmoScope is a command-line portfolio tracker that aggregates balances across multiple blockchain networks, including Cosmos ecosystem and EVM chains.
+CosmoScope is a command-line portfolio tracker that aggregates balances across multiple blockchain networks, including Cosmos ecosystem and EVM chains. It automatically fetches network configurations and IBC assets from the Cosmos Chain Registry.
 
 ## Features
 
 - Multi-chain portfolio tracking
-  - Cosmos ecosystem networks
+  - Cosmos ecosystem networks (auto-configured from Chain Registry)
   - EVM networks (Ethereum, Polygon, etc.)
 - Balance types supported:
   - Wallet balances
   - Staked assets
   - Unclaimed rewards
   - Fixed balances (Exchange/Cold storage)
-- IBC token resolution
+- Automatic IBC token resolution using Chain Registry
 - Spam token filtering
 - Real-time USD value calculation
 - Detailed and summary views
@@ -25,6 +25,9 @@ CosmoScope is a command-line portfolio tracker that aggregates balances across m
 git clone https://github.com/yourusername/cosmoscope.git
 cd cosmoscope
 
+# Install development dependencies
+make dev-deps
+
 # Copy and configure settings
 cp configs/config_example.json configs/config.json
 
@@ -32,10 +35,47 @@ cp configs/config_example.json configs/config.json
 vim configs/config.json
 
 # Build the project
-go build ./cmd/cosmoscope
+make build
 
-# Run
-./cosmoscope
+# Run tests
+make test
+
+# Run the application
+make run
+```
+
+## Development
+
+### Prerequisites
+
+- Go 1.21 or later
+- Make
+- golangci-lint (installed via make dev-deps)
+
+### Available Make Commands
+
+```bash
+make build           # Build the binary
+make test           # Run tests
+make lint           # Run linter
+make coverage       # Generate coverage report
+make clean          # Clean build artifacts
+make dev-deps       # Install development dependencies
+make deps-update    # Update dependencies
+make check-tools    # Check tool versions
+```
+
+### Running Tests
+
+```bash
+# Run all tests
+make test
+
+# Run tests with coverage
+make coverage
+
+# View coverage report in browser
+go tool cover -html=coverage.out
 ```
 
 ## Configuration
@@ -46,27 +86,18 @@ cp configs/config_example.json configs/config.json
 ```
 
 2. Update configs/config.json with your details:
-   - Add your network RPC endpoints
    - Configure your addresses
    - Add your Moralis API key
    - Set up fixed balances
-   - Update IBC assets mapping
 
 Example configuration:
 ```json
 {
-    "cosmos_networks": [
-        {
-            "name": "osmosis",
-            "api": "https://api.osmosis.zone",
-            "prefix": "osmo",
-            "chain_id": "osmosis-1"
-        }
-    ],
+    "cosmos_addresses": ["cosmos1..."],
     "evm_networks": [
         {
             "name": "ethereum",
-            "rpc": "https://eth-mainnet.alchemyapi.io/v2/YOUR-API-KEY",
+            "rpc": "https://mainnet.infura.io/v3/YOUR_KEY",
             "chain_id": 1,
             "native_token": {
                 "symbol": "ETH",
@@ -75,9 +106,7 @@ Example configuration:
             }
         }
     ],
-    "cosmos_addresses": ["osmo1..."],
     "evm_addresses": ["0x..."],
-    "ibc_assets_file": "configs/ibc_assets.json",
     "moralis_api_key": "YOUR-MORALIS-API-KEY",
     "fixed_balances": [
         {
@@ -88,6 +117,8 @@ Example configuration:
     ]
 }
 ```
+
+Note: Cosmos network configurations are now automatically fetched from the [Cosmos Chain Registry](https://github.com/cosmos/chain-registry).
 
 ## Required API Keys
 
@@ -101,29 +132,40 @@ Example configuration:
    - Infura: https://infura.io/
    - Or other RPC providers
 
-## Usage
+## CI/CD
+
+The project uses GitHub Actions for continuous integration and deployment:
+
+- Automated testing and code coverage reporting
+- Linting with golangci-lint
+- Multi-platform builds (Linux, macOS, Windows)
+- Automatic releases on tags
+- Coverage reporting with Codecov
+
+### Release Process
+
+To create a new release:
 
 ```bash
-# Run with default config
-./cosmoscope
+git tag v1.0.0
+git push origin v1.0.0
+```
 
-# Example output:
-*******************************************************************************
-*                                                                             *
-*                BALANCES REPORT   (2024-1-2 15:4:5)                         *
-*                                                                             *
-*******************************************************************************
+This will trigger the CI pipeline to:
+1. Run tests and coverage
+2. Build binaries for all platforms
+3. Create a GitHub release
+4. Upload binaries to the release
 
-Detailed Balance View:
-+------------------+-----------+---------+----------+-----------+
-|      ACCOUNT     |  NETWORK  |  TOKEN  |  AMOUNT  | USD VALUE |
-+------------------+-----------+---------+----------+-----------+
-| Cold Wallet      | Exchange  | BTC     |    1.000 | $42000.00 |
-| osmo1...         | osmosis   | OSMO    |  100.000 |   $500.00 |
-| 0x...            | ethereum  | ETH     |    1.500 |  $3000.00 |
-+------------------+-----------+---------+----------+-----------+
+## Contributing
 
-Portfolio Summary:
-+---------+----------+-----------+----------+
-|  TOKEN  |  AMOUNT  | USD VALUE |  SHARE % |
-+---------+----------+-----------+----------
+1. Fork the repository
+2. Create your feature branch (`git checkout -b feature/amazing-feature`)
+3. Run tests and linting (`make test lint`)
+4. Commit your changes (`git commit -m 'Add amazing feature'`)
+5. Push to the branch (`git push origin feature/amazing-feature`)
+6. Open a Pull Request
+
+## License
+
+This project is licensed under the MIT License - see the LICENSE file for details
