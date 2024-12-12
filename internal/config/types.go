@@ -17,13 +17,6 @@ type Config struct {
 	CoinGeckoURI    string         `json:"coingecko_uri"`
 }
 
-// type CosmosNetwork struct {
-// 	Name    string `json:"name"`
-// 	API     string `json:"api"`
-// 	Prefix  string `json:"prefix"`
-// 	ChainID string `json:"chain_id"`
-// }
-
 type NativeToken struct {
 	Symbol   string `json:"symbol"`
 	Name     string `json:"name"`

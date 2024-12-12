@@ -16,39 +16,6 @@ import (
 	"github.com/cosmos/cosmos-sdk/types/bech32"
 )
 
-type ChainInfo struct {
-	ChainName    string `json:"chain_name"`
-	Bech32Prefix string `json:"bech32_prefix"`
-	ChainID      string `json:"chain_id"`
-	APIs         struct {
-		REST []RestEndpoint `json:"rest"`
-	} `json:"apis"`
-}
-
-type RestEndpoint struct {
-	Address string `json:"address"`
-}
-
-type AssetList struct {
-	Assets []Asset `json:"assets"`
-}
-
-type Asset struct {
-	Description string      `json:"description"`
-	DenomUnits  []DenomUnit `json:"denom_units"`
-	Base        string      `json:"base"`
-	Display     string      `json:"display"`
-	Name        string      `json:"name"`
-	Symbol      string      `json:"symbol"`
-	TypeAsset   string      `json:"type_asset"`
-}
-
-type DenomUnit struct {
-	Denom    string   `json:"denom"`
-	Exponent int      `json:"exponent"`
-	Aliases  []string `json:"aliases,omitempty"`
-}
-
 // Cache for chain and asset information
 var (
 	chainInfoCache  = make(map[string]*ChainInfo)
@@ -57,8 +24,6 @@ var (
 )
 
 // getActiveEndpoint tries each REST endpoint until it finds one that responds
-
-// Update getActiveEndpoint to match the type
 func getActiveEndpoint(endpoints []RestEndpoint) string {
 	ctx, cancel := context.WithTimeout(context.Background(), 3*time.Second)
 	defer cancel()
@@ -354,64 +319,6 @@ func getBalance(api string, address string, endpoint string) []struct {
 		return balances
 	}
 }
-
-// func queryStakingBalances(network config.CosmosNetwork, address string, balanceChan chan<- portfolio.Balance, ibcMap map[string]*config.IBCAsset) {
-// 	stakingBalances := getBalance(network.API, address, "/cosmos/staking/v1beta1/delegations")
-// 	for _, balance := range stakingBalances {
-// 		symbol, decimals := resolveIBCDenom(balance.Denom, ibcMap)
-// 		amount := utils.ParseAmount(balance.Amount, decimals)
-// 		usdValue := price.CalculateUSDValue(symbol, amount)
-
-// 		balanceChan <- portfolio.Balance{
-// 			Network:  fmt.Sprintf("%s-staking", network.Name),
-// 			Account:  address,
-// 			HexAddr:  getHexAddress(address),
-// 			Token:    symbol,
-// 			Amount:   amount,
-// 			USDValue: usdValue,
-// 			Decimals: decimals,
-// 		}
-// 	}
-// }
-
-// func queryRewards(network config.CosmosNetwork, address string, balanceChan chan<- portfolio.Balance, ibcMap map[string]*config.IBCAsset) {
-// 	rewardBalances := getBalance(network.API, "", fmt.Sprintf("/cosmos/distribution/v1beta1/delegators/%s/rewards", address))
-// 	for _, balance := range rewardBalances {
-// 		symbol, decimals := resolveIBCDenom(balance.Denom, ibcMap)
-// 		amount := utils.ParseAmount(balance.Amount, decimals)
-// 		usdValue := price.CalculateUSDValue(symbol, amount)
-
-// 		balanceChan <- portfolio.Balance{
-// 			Network:  fmt.Sprintf("%s-rewards", network.Name),
-// 			Account:  address,
-// 			HexAddr:  getHexAddress(address),
-// 			Token:    symbol,
-// 			Amount:   amount,
-// 			USDValue: usdValue,
-// 			Decimals: decimals,
-// 		}
-// 	}
-// }
-
-// func resolveIBCDenom(denom string, ibcMap map[string]*config.IBCAsset) (string, int) {
-// 	if asset, exists := ibcMap[denom]; exists {
-// 		return asset.Symbol, asset.Decimals
-// 	}
-
-// 	if strings.HasPrefix(denom, "ibc/") {
-// 		return denom + " (Unknown IBC Asset)", 6
-// 	}
-
-// 	if strings.HasPrefix(denom, "u") {
-// 		return strings.ToUpper(strings.TrimLeft(denom, "u")), 6
-// 	}
-
-// 	if strings.HasPrefix(denom, "a") {
-// 		return strings.ToUpper(strings.TrimLeft(denom, "a")), 18
-// 	}
-
-// 	return denom, 6
-// }
 
 func getHexAddress(address string) string {
 	_, bz, err := bech32.DecodeAndConvert(address)
