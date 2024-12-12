@@ -1,0 +1,46 @@
+name: Go
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Set up Go
+      uses: actions/setup-go@v4
+      with:
+        go-version: '1.21'
+        cache: true
+
+    - name: Verify dependencies
+      run: go mod verify
+
+    - name: Format check
+      run: |
+        if [ "$(gofmt -s -l . | wc -l)" -gt 0 ]; then
+          echo "The following files are not formatted correctly:"
+          gofmt -s -l .
+          exit 1
+        fi
+
+    - name: Run golangci-lint
+      uses: golangci/golangci-lint-action@v3
+      with:
+        version: latest
+
+    - name: Run tests
+      run: make test
+
+    - name: Build
+      run: make build
+
+    - name: Upload coverage
+      uses: codecov/codecov-action@v3
+      with:
+        files: ./coverage.out
