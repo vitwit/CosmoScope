@@ -3,7 +3,6 @@ package main
 import (
 	"fmt"
 	"sync"
-	"time"
 
 	"github.com/anilcse/cosmoscope/internal/config"
 	"github.com/anilcse/cosmoscope/internal/cosmos"
@@ -14,7 +13,7 @@ import (
 )
 
 func main() {
-	printHeader()
+	portfolio.PrintHeader()
 
 	// Load configuration
 	cfg := config.Load()
@@ -71,19 +70,7 @@ func main() {
 
 	// Collect and display balances
 	balances := portfolio.CollectBalances(balanceChan)
-	portfolio.DisplayBalances(balances)
-	portfolio.DisplaySummary(balances)
-}
 
-func printHeader() {
-	fmt.Println("\n\n\n*******************************************************************************")
-	fmt.Println("*                                                                             *")
-	fmt.Println("*                                                                             *")
-	fmt.Printf("*                 BALANCES REPORT   (%s)                     *\n", time.Now().Format("2006-01-02 15:04:05"))
-	fmt.Println("*                                                                             *")
-	fmt.Println("*                                                                             *")
-	fmt.Println("*******************************************************************************")
-	fmt.Println("")
-	fmt.Println("")
-	fmt.Println("")
+	// Print the report
+	portfolio.PrintBalanceReport(balances)
 }
