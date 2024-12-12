@@ -93,6 +93,7 @@ cp configs/config_example.json configs/config.json
 Example configuration:
 ```json
 {
+    "cosmos_networks": ["cosmoshub", "akash", "..."],
     "cosmos_addresses": ["cosmos1..."],
     "evm_networks": [
         {
@@ -216,6 +217,8 @@ Asset Types:
   - Asset type breakdown
 
 ### Coming Soon 🚧
+- **Exchange Support**
+  - Integrate exchanges apis
 - **Solana Integration**
   - Native SOL & SPL tokens
   - Stake accounts
