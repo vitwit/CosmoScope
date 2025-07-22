@@ -3,6 +3,7 @@ package portfolio
 import (
 	"fmt"
 	"os"
+	"sort"
 	"strings"
 	"time"
 
@@ -72,6 +73,11 @@ func PrintFooter(balances []Balance) {
 }
 
 func printDetailedView(balances []Balance) {
+	// Sort balances by USDValue descending
+	sort.Slice(balances, func(i, j int) bool {
+		return balances[i].USDValue > balances[j].USDValue
+	})
+
 	table := tablewriter.NewWriter(os.Stdout)
 	table.SetHeader([]string{"Account", "Network", "Token", "Amount", "USD Value"})
 	table.SetAutoMergeCells(false)
@@ -86,14 +92,38 @@ func printDetailedView(balances []Balance) {
 		tablewriter.Colors{tablewriter.Bold},
 	)
 
+	// Determine min and max USDValue for gradient
+	var minUSD, maxUSD float64
+	if len(balances) > 0 {
+		minUSD, maxUSD = balances[len(balances)-1].USDValue, balances[0].USDValue
+	}
+
 	for _, b := range balances {
-		table.Append([]string{
+		row := []string{
 			truncateString(b.Account, 20),
 			b.Network,
 			b.Token,
 			fmt.Sprintf("%.4f", b.Amount),
 			fmt.Sprintf("$%.2f", b.USDValue),
-		})
+		}
+
+		// Calculate normalized value (0 = min, 1 = max)
+		norm := 0.0
+		if maxUSD > minUSD {
+			norm = (b.USDValue - minUSD) / (maxUSD - minUSD)
+		}
+
+		// Assign color: top 20% bold green, next 30% normal green, rest no color
+		var color tablewriter.Colors
+		if norm >= 0.8 {
+			color = tablewriter.Colors{tablewriter.FgHiGreenColor, tablewriter.Bold}
+		} else if norm >= 0.5 {
+			color = tablewriter.Colors{tablewriter.FgGreenColor}
+		} else {
+			color = tablewriter.Colors{} // default
+		}
+
+		table.Rich(row, []tablewriter.Colors{color, color, color, color, color})
 	}
 
 	titleColor.Println("Detailed Balance View:")
@@ -102,6 +132,11 @@ func printDetailedView(balances []Balance) {
 }
 
 func printPortfolioSummary(balances []Balance) {
+	tokens = make(map[string]*struct {
+		amount   float64
+		usdValue float64
+	})
+	totalValue = 0
 	for _, b := range balances {
 		if _, exists := tokens[b.Token]; !exists {
 			tokens[b.Token] = &struct {
@@ -112,6 +147,32 @@ func printPortfolioSummary(balances []Balance) {
 		tokens[b.Token].amount += b.Amount
 		tokens[b.Token].usdValue += b.USDValue
 		totalValue += b.USDValue
+	}
+
+	// Collect token summaries for sorting
+	type tokenRow struct {
+		token    string
+		amount   float64
+		usdValue float64
+	}
+	var rows []tokenRow
+	for token, sum := range tokens {
+		rows = append(rows, tokenRow{
+			token:    token,
+			amount:   sum.amount,
+			usdValue: sum.usdValue,
+		})
+	}
+
+	// Sort by USD value descending
+	sort.Slice(rows, func(i, j int) bool {
+		return rows[i].usdValue > rows[j].usdValue
+	})
+
+	// Determine min and max USDValue for gradient
+	var minUSD, maxUSD float64
+	if len(rows) > 0 {
+		minUSD, maxUSD = rows[len(rows)-1].usdValue, rows[0].usdValue
 	}
 
 	table := tablewriter.NewWriter(os.Stdout)
@@ -127,14 +188,36 @@ func printPortfolioSummary(balances []Balance) {
 		tablewriter.Colors{tablewriter.Bold},
 	)
 
-	for token, sum := range tokens {
-		share := (sum.usdValue / totalValue) * 100
-		table.Append([]string{
-			token,
-			fmt.Sprintf("%.4f", sum.amount),
-			fmt.Sprintf("$%.2f", sum.usdValue),
+	for _, row := range rows {
+		share := (row.usdValue / totalValue) * 100
+		rowData := []string{
+			row.token,
+			fmt.Sprintf("%.4f", row.amount),
+			fmt.Sprintf("$%.2f", row.usdValue),
 			fmt.Sprintf("%.2f%%", share),
-		})
+		}
+
+		// Calculate normalized value (0 = min, 1 = max)
+		norm := 0.0
+		if maxUSD > minUSD {
+			norm = (row.usdValue - minUSD) / (maxUSD - minUSD)
+		}
+
+		// Assign color: top 20% bold blue, next 20% normal blue, next 20% light blue, next 10% very light blue, rest no color
+		var color tablewriter.Colors
+		if norm >= 0.8 {
+			color = tablewriter.Colors{tablewriter.FgHiBlueColor, tablewriter.Bold} // bold blue
+		} else if norm >= 0.6 {
+			color = tablewriter.Colors{tablewriter.FgBlueColor} // normal blue
+		} else if norm >= 0.4 {
+			color = tablewriter.Colors{tablewriter.FgHiBlueColor} // light blue
+		} else if norm >= 0.3 {
+			color = tablewriter.Colors{tablewriter.FgBlueColor} // very light blue (reuse normal blue, but no bold)
+		} else {
+			color = tablewriter.Colors{} // default
+		}
+
+		table.Rich(rowData, []tablewriter.Colors{color, color, color, color})
 	}
 
 	titleColor.Println("Portfolio Summary:")
